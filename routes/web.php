@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PelangganController;
+use App\Models\Karyawan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'welcome')->name('home');
+
+Route::post('/login', [LoginController::class, 'attempt']);
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+// Route::get('/register', [PelangganController::class, 'registerCustomerForm'])->name('register');
+
+Route::get('/karyawan', [KaryawanController::class, 'dashboard'])->name('karyawan.dashboard');
+Route::get('/karyawan/data', [KaryawanController::class, 'viewDataKaryawan'])->name('karyawan.data');
