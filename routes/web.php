@@ -17,12 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome')->name('home');
-
-Route::post('/login', [LoginController::class, 'attempt']);
+Route::post('/login', [LoginController::class, 'attempt'])->name('login.attempt');
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Route::get('/register', [PelangganController::class, 'registerCustomerForm'])->name('register');
+
+Route::get('/', function() {
+    return redirect(route('login'));
+})->name('home');
 
 Route::get('/karyawan', [KaryawanController::class, 'dashboard'])->name('karyawan.dashboard');
 Route::get('/karyawan/data', [KaryawanController::class, 'viewDataKaryawan'])->name('karyawan.data');
