@@ -27,4 +27,10 @@ Route::get('/', function() {
 })->name('home');
 
 Route::get('/karyawan', [KaryawanController::class, 'dashboard'])->name('karyawan.dashboard');
-Route::get('/karyawan/data', [KaryawanController::class, 'viewDataKaryawan'])->name('karyawan.data');
+Route::get('/karyawan/data', [KaryawanController::class, 'view'])->name('karyawan.view');
+Route::get('/karyawan/tambah', [KaryawanController::class, 'tambah'])->name('karyawan.tambah');
+Route::post('/karyawan', [KaryawanController::class, 'store'])->name('karyawan.store');
+Route::get('/karyawan/{karyawan}/edit', [KaryawanController::class, 'edit'])->name('karyawan.edit');
+Route::post('/karyawan/{karyawan}/deactivate', [KaryawanController::class, 'deactivate'])->name('karyawan.deactivate');
+Route::post('/karyawan/{karyawan}/activate', [KaryawanController::class, 'activate'])->name('karyawan.activate');
+Route::post('/karyawan/{karyawan}', [KaryawanController::class, 'update'])->name('karyawan.update');

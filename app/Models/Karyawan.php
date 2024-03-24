@@ -21,8 +21,10 @@ class Karyawan extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nama',
         'username',
+        'role',
+        'active',
         'password',
     ];
 

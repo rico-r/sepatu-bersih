@@ -107,7 +107,7 @@
         @can('edit-employee')
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('karyawan.data') }}">
+            <a class="nav-link" href="{{ route('karyawan.view') }}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Data Karyawan</span></a>
         </li>
@@ -357,6 +357,8 @@
 
 </div>
 <!-- End of Page Wrapper -->
+
+@include('layout.notice')
 
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
