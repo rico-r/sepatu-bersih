@@ -107,7 +107,7 @@
 
 <script>
 $(document).ready(function() {
-  $('#dataTable').DataTable();
+  $('table').DataTable();
 });
 </script>
 

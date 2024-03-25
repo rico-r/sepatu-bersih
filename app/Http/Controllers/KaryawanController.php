@@ -11,6 +11,7 @@ class KaryawanController extends Controller
     public function __construct()
     {
         $this->middleware('auth:karyawan');
+        $this->middleware('can:edit-employee')->except('dashboard');
     }
     
     public function dashboard()
