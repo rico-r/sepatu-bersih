@@ -14,9 +14,13 @@ class KaryawanController extends Controller
         $this->middleware('can:edit-employee')->except('dashboard');
     }
     
-    public function dashboard()
+    public function dashboard(Karyawan $user)
     {
-        return view('karyawan.dashboard');
+        if($user->role == 'admin') {
+            return view('admin.dashboard');
+        } else {
+            return view('karyawan.dashboard');
+        }
     }
     
     public function view()

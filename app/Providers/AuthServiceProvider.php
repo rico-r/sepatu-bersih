@@ -30,5 +30,8 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('edit-service', function(Karyawan $user) {
             return $user->role == 'admin';
         });
+        Gate::define('edit-data', function(Karyawan $user) {
+            return $user->role == 'admin';
+        });
     }
 }

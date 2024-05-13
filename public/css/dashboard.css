@@ -1,0 +1,13 @@
+
+#plus,
+#minus {
+    line-height: 100%;
+}
+
+#amount {
+    width: 2em;
+    background: none;
+    border: none;
+    text-align: center;
+    -moz-appearance: textfield;
+}

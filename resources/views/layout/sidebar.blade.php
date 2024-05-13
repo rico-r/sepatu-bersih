@@ -17,6 +17,7 @@
             <span>Dashboard</span>
     </x-nav-item>
 
+    @can(['edit-employee', 'edit-service'])
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -37,6 +38,8 @@
         <i class="fas fa-fw fa-table"></i>
         <span>Layanan</span>
     </x-nav-item>
+    @endcan
+
     @endcan
 
     <!-- Divider -->
