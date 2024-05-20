@@ -4,25 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class KaryawanController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth:karyawan');
-        $this->middleware('can:edit-employee')->except('dashboard');
+        $this->middleware('can:edit-employee')->except('redirect');
     }
-    
-    public function dashboard(Karyawan $user)
+
+    public function redirect()
     {
-        if($user->role == 'admin') {
-            return view('admin.dashboard');
+        $guard = Auth::guard('karyawan');
+        if ($guard->user()->role == 'admin') {
+            return redirect(route('admin.dashboard'));
         } else {
-            return view('karyawan.dashboard');
+            return redirect(route('order.make'));
         }
     }
-    
+
+    public function dashboard()
+    {
+        return view('admin.dashboard');
+    }
+
     public function view()
     {
         return view('karyawan.data');
@@ -53,7 +61,7 @@ class KaryawanController extends Controller
     public function update(Request $request, Karyawan $karyawan)
     {
         $attr = $request->only(['nama', 'username', 'role']);
-        if($request->has('password')) {
+        if ($request->has('password')) {
             $attr['password'] = Hash::make($request->password);
         }
         $karyawan->update($attr);

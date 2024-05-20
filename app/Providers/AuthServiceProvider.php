@@ -24,13 +24,16 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('edit-employee', function(Karyawan $user) {
+        Gate::define('edit-employee', function (Karyawan $user) {
             return $user->role == 'admin';
         });
-        Gate::define('edit-service', function(Karyawan $user) {
+        Gate::define('edit-service', function (Karyawan $user) {
             return $user->role == 'admin';
         });
-        Gate::define('edit-data', function(Karyawan $user) {
+        Gate::define('edit-data', function (Karyawan $user) {
+            return $user->role == 'admin';
+        });
+        Gate::define('manage-web', function (Karyawan $user) {
             return $user->role == 'admin';
         });
     }

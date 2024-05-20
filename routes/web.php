@@ -3,8 +3,10 @@
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\LayananController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PelangganController;
 use App\Models\Karyawan;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,12 +25,16 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Route::get('/register', [PelangganController::class, 'registerCustomerForm'])->name('register');
 
-Route::get('/', function() {
+Route::get('/', function () {
     return redirect(route('login'));
 })->name('home');
 
-Route::prefix('/karyawan')->as('karyawan.')->group(function() {
-    Route::get('/', [KaryawanController::class, 'dashboard'])->name('dashboard');
+Route::prefix('/admin')->as('admin.')->middleware('can:manage-web')->group(function () {
+    Route::get('/dashboard', [KaryawanController::class, 'dashboard'])->name('dashboard');
+});
+
+Route::prefix('/karyawan')->as('karyawan.')->group(function () {
+    Route::get('/redirect', [KaryawanController::class, 'redirect'])->name('dashboard');
     Route::get('/data', [KaryawanController::class, 'view'])->name('view');
     Route::get('/tambah', [KaryawanController::class, 'tambah'])->name('tambah');
     Route::get('/{karyawan}/edit', [KaryawanController::class, 'edit'])->name('edit');
@@ -38,7 +44,7 @@ Route::prefix('/karyawan')->as('karyawan.')->group(function() {
     Route::post('/{karyawan}', [KaryawanController::class, 'update'])->name('update');
 });
 
-Route::prefix('/layanan')->as('layanan.')->group(function() {
+Route::prefix('/layanan')->as('layanan.')->group(function () {
     Route::get('/', [LayananController::class, 'view'])->name('view');
     Route::get('/tambah', [LayananController::class, 'tambah'])->name('tambah');
     Route::get('/{layanan}/edit', [LayananController::class, 'edit'])->name('edit');
@@ -47,3 +53,11 @@ Route::prefix('/layanan')->as('layanan.')->group(function() {
     Route::post('/', [LayananController::class, 'store'])->name('store');
 });
 
+Route::prefix('/pesanan')->as('order.')->group(function () {
+    Route::get('/buat', [OrderController::class, 'makeOrderView'])->name('make');
+    Route::get('/diproses', [OrderController::class, 'listProcess'])->name('process');
+    Route::get('/selesai', [OrderController::class, 'listReady'])->name('done');
+    Route::get('/{pesanan}', [OrderController::class, 'view'])->name('view');
+    Route::post('/{pesanan}/mark-ready', [OrderController::class, 'markReady'])->name('mark-ready');
+    Route::post('/simpan', [OrderController::class, 'saveOrder'])->name('save');
+});

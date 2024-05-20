@@ -11,10 +11,33 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
+    @if($user->role == 'admin')
     <!-- Nav Item - Dashboard -->
-    <x-nav-item :href="route('karyawan.dashboard')">
+    <x-nav-item :href="route('admin.dashboard')">
         <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
+    </x-nav-item>
+    @endif
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Pesanan 
+    </div>
+
+    <x-nav-item :href="route('order.make')">
+        <i class="fas fa-fw fa-pen"></i>
+            <span>Buat Pesanan</span>
+    </x-nav-item>
+    <x-nav-item :href="route('order.process')">
+        <i class="fas fa-fw fa-table"></i>
+            <span>Pesanan Diproses</span>
+    </x-nav-item>
+    <x-nav-item :href="route('order.done')">
+        <i class="fas fa-fw fa-table"></i>
+            <span>Pesanan Selesai</span>
     </x-nav-item>
 
     @can(['edit-employee', 'edit-service'])
