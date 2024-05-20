@@ -5,6 +5,7 @@ use App\Http\Controllers\LayananController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\ProfileController;
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,7 +35,10 @@ Route::prefix('/admin')->as('admin.')->middleware('can:manage-web')->group(funct
 });
 
 Route::prefix('/karyawan')->as('karyawan.')->group(function () {
-    Route::get('/redirect', [KaryawanController::class, 'redirect'])->name('dashboard');
+    Route::get('/profile', [ProfileController::class, 'profile'])->name('profile');
+    Route::get('/redirect', [ProfileController::class, 'redirect'])->name('dashboard');
+    Route::post('/profile', [ProfileController::class, 'updateProfile'])->name('update-profile');
+
     Route::get('/data', [KaryawanController::class, 'view'])->name('view');
     Route::get('/tambah', [KaryawanController::class, 'tambah'])->name('tambah');
     Route::get('/{karyawan}/edit', [KaryawanController::class, 'edit'])->name('edit');
@@ -54,10 +58,13 @@ Route::prefix('/layanan')->as('layanan.')->group(function () {
 });
 
 Route::prefix('/pesanan')->as('order.')->group(function () {
+    Route::get('/', [OrderController::class, 'all'])->name('all');
     Route::get('/buat', [OrderController::class, 'makeOrderView'])->name('make');
     Route::get('/diproses', [OrderController::class, 'listProcess'])->name('process');
     Route::get('/selesai', [OrderController::class, 'listReady'])->name('done');
     Route::get('/{pesanan}', [OrderController::class, 'view'])->name('view');
+    Route::get('/{pesanan}/delete', [OrderController::class, 'delete'])->name('delete');
     Route::post('/{pesanan}/mark-ready', [OrderController::class, 'markReady'])->name('mark-ready');
+    Route::post('/{pesanan}/mark-done', [OrderController::class, 'markDone'])->name('mark-done');
     Route::post('/simpan', [OrderController::class, 'saveOrder'])->name('save');
 });

@@ -12,17 +12,6 @@
     <div class="mb-4">
         <div class="card shadow pe-2">
             <div class="card-body">
-                {{-- <form id="search">
-                    <div class="input-group">
-                        <input name="keyword" type="text" class="form-control bg-light small" placeholder="Cari ID pesanan..." autocomplete="off" title="Shortcut: / (SLASH)" autofocus>
-                        <div class="input-group-append">
-                            <button class="btn btn-primary">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form> --}}
-
                 <div class="table-responsive mt-2">
 
                     <table class="table table-borderless" cellspacing="0" cellpadding="0">
@@ -49,7 +38,7 @@
                                 <th>Layanan</th>
                                 <th>Harga</th>
                                 <th>Jumlah</th>
-                                <th>Subtotal</th>
+                                <th class="text-right">Subtotal</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -5,15 +5,12 @@
 @section('content')
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Daftar Pesanan Diproses</h1>
+    <h1 class="h3 mb-0 text-gray-800">Semua Pesanan</h1>
 </div>
 
 <div class="row">
     <div class="mb-4">
         <div class="card shadow pe-2">
-            {{-- <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Daftar Pesanan Diproses</h6>
-            </div> --}}
             <div class="card-body">
                 <form id="search">
                     <div class="input-group">
@@ -33,6 +30,7 @@
                                 <th>ID Pesanan</th>
                                 <th>Total</th>
                                 <th>Waktu Pesan</th>
+                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -42,16 +40,8 @@
                                 <td>{{ $pesanan->id }}</td>
                                 <td>{{ formatMoney($pesanan->total) }}</td>
                                 <td>{{ formatDatetime($pesanan->created_at) }}</td>
+                                <td>{{ $pesanan->status_view() }}</td>
                                 <td>
-                                    <button class="btn btn-success" title="Tandai selesai diproses" onclick="markReady(this, {{ $pesanan->id }})">
-                                        <i class="fa fa-check"></i>
-                                    </button>
-                                    <button class="btn btn-primary" title="cetak nota">
-                                        <i class="fa fa-print"></i>
-                                    </button>
-                                    <button class="btn btn-warning" title="cetak label">
-                                        <i class="fa fa-print"></i>
-                                    </button>
                                     <a class="btn btn-primary" title="Lihat pesanan" href="{{ route('order.view', ['pesanan' => $pesanan->id] )}}">
                                         <i class="fa fa-eye"></i>
                                     </a>

@@ -22,10 +22,14 @@ class Pesanan extends Model
         'kembalian',
     ];
 
-
     function rincian()
     {
         return $this->hasMany(RincianPesanan::class, 'id_pesanan');
+    }
+
+    function detail_status()
+    {
+        return $this->hasMany(StatusPesanan::class, 'id_pesanan');
     }
 
     function kasir()
@@ -43,5 +47,17 @@ class Pesanan extends Model
             default:
                 return 'diambil';
         }
+    }
+
+    protected static function booted(): void
+    {
+        static::deleting(function (Pesanan $pesanan) {
+            foreach ($pesanan->rincian as $rincian) {
+                $rincian->delete();
+            }
+            foreach ($pesanan->detail_status as $status) {
+                $status->delete();
+            }
+        });
     }
 }

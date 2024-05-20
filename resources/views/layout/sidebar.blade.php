@@ -39,6 +39,10 @@
         <i class="fas fa-fw fa-table"></i>
             <span>Pesanan Selesai</span>
     </x-nav-item>
+    <x-nav-item :href="route('order.all')">
+        <i class="fas fa-fw fa-table"></i>
+            <span>Semua Pesanan</span>
+    </x-nav-item>
 
     @can(['edit-employee', 'edit-service'])
     <!-- Divider -->

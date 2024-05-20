@@ -13,17 +13,11 @@ class KaryawanController extends Controller
     public function __construct()
     {
         $this->middleware('auth:karyawan');
-        $this->middleware('can:edit-employee')->except('redirect');
-    }
-
-    public function redirect()
-    {
-        $guard = Auth::guard('karyawan');
-        if ($guard->user()->role == 'admin') {
-            return redirect(route('admin.dashboard'));
-        } else {
-            return redirect(route('order.make'));
-        }
+        $this->middleware('can:edit-employee')->except([
+            'redirect',
+            'profile',
+            'updateProfile',
+        ]);
     }
 
     public function dashboard()
@@ -61,7 +55,7 @@ class KaryawanController extends Controller
     public function update(Request $request, Karyawan $karyawan)
     {
         $attr = $request->only(['nama', 'username', 'role']);
-        if ($request->has('password')) {
+        if ($request->has('password') && strlen($request->password) > 0) {
             $attr['password'] = Hash::make($request->password);
         }
         $karyawan->update($attr);

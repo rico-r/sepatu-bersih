@@ -27,6 +27,13 @@ class OrderController extends Controller
         ]);
     }
 
+    function all()
+    {
+        return view('karyawan.all-order', [
+            'listPesanan' => Pesanan::all(),
+        ]);
+    }
+
     function saveOrder(Request $request)
     {
         Log::debug('save order', $request->all());
@@ -71,6 +78,14 @@ class OrderController extends Controller
         ]);
         return [
             'success' => true,
+        ];
+    }
+
+    function delete(Pesanan $pesanan)
+    {
+        $pesanan->delete();
+        return [
+            'status' => true,
         ];
     }
 }
