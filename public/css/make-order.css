@@ -11,3 +11,11 @@
     text-align: center;
     -moz-appearance: textfield;
 }
+
+.modal {
+    display: flex;
+}
+
+.modal.hide {
+    display: none;
+}

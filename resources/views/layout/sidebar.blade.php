@@ -35,9 +35,13 @@
         <i class="fas fa-fw fa-table"></i>
             <span>Pesanan Diproses</span>
     </x-nav-item>
-    <x-nav-item :href="route('order.done')">
+    <x-nav-item :href="route('order.ready')">
         <i class="fas fa-fw fa-table"></i>
             <span>Pesanan Selesai</span>
+    </x-nav-item>
+    <x-nav-item :href="route('order.done')">
+        <i class="fas fa-fw fa-table"></i>
+            <span>Pesanan Diambil</span>
     </x-nav-item>
     <x-nav-item :href="route('order.all')">
         <i class="fas fa-fw fa-table"></i>

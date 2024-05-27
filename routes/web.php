@@ -1,13 +1,11 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\LayananController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\ProfileController;
-use App\Models\Karyawan;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,11 +22,16 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [LoginController::class, 'attempt'])->name('login.attempt');
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-// Route::get('/register', [PelangganController::class, 'registerCustomerForm'])->name('register');
 
 Route::get('/', function () {
     return redirect(route('login'));
 })->name('home');
+
+Route::prefix('/stat')->group(function () {
+    Route::post('/month-revenue', [DashboardController::class, 'getMonthRevenue']);
+    Route::post('/service-type', [DashboardController::class, 'getServiceTypeCount']);
+    Route::post('/report', [DashboardController::class, 'getReportContent']);
+});
 
 Route::prefix('/admin')->as('admin.')->middleware('can:manage-web')->group(function () {
     Route::get('/dashboard', [KaryawanController::class, 'dashboard'])->name('dashboard');
@@ -61,10 +64,15 @@ Route::prefix('/pesanan')->as('order.')->group(function () {
     Route::get('/', [OrderController::class, 'all'])->name('all');
     Route::get('/buat', [OrderController::class, 'makeOrderView'])->name('make');
     Route::get('/diproses', [OrderController::class, 'listProcess'])->name('process');
-    Route::get('/selesai', [OrderController::class, 'listReady'])->name('done');
+    Route::get('/selesai', [OrderController::class, 'listReady'])->name('ready');
+    Route::get('/diambil', [OrderController::class, 'listDone'])->name('done');
     Route::get('/{pesanan}', [OrderController::class, 'view'])->name('view');
+    Route::get('/{pesanan}/json', [OrderController::class, 'getJson']);
     Route::get('/{pesanan}/delete', [OrderController::class, 'delete'])->name('delete');
+    Route::post('/{pesanan}/mark-process', [OrderController::class, 'markProcess'])->name('mark-process');
     Route::post('/{pesanan}/mark-ready', [OrderController::class, 'markReady'])->name('mark-ready');
     Route::post('/{pesanan}/mark-done', [OrderController::class, 'markDone'])->name('mark-done');
+    Route::post('/{pesanan}/revert-ready', [OrderController::class, 'revertReady'])->name('revert-ready');
+    Route::post('/{pesanan}/revert-done', [OrderController::class, 'revertDone'])->name('revert-done');
     Route::post('/simpan', [OrderController::class, 'saveOrder'])->name('save');
 });

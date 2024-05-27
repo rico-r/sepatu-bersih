@@ -9,7 +9,7 @@
 </div>
 
 <div class="row">
-    <div class="mb-4">
+    <div class="col-6 mb-4">
         <div class="card shadow pe-2">
             <div class="card-body">
                 <form id="form" method="post" action="{{ route('karyawan.update-profile') }}">

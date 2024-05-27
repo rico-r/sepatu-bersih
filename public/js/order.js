@@ -29,14 +29,9 @@ $(document).on('keydown', e => {
     e.preventDefault();
 });
 
-function markDone(el, id) {
-    $(el.parentElement.parentElement).remove();
-    showMessage(`Pesanan ${id} berhasil diambil`)
-}
-
 function markReady(el, id) {
     const request = {
-        url: ROUTE_MARK_READY.replace('##', id),
+        url: `/pesanan/${id}/mark-ready`,
         method: "POST",
     };
     request.success = (data, textStatus, xhr) => {
@@ -49,11 +44,56 @@ function markReady(el, id) {
     $.ajax(request);
 }
 
+function markDone(el, id) {
+    const request = {
+        url: `/pesanan/${id}/mark-done`,
+        method: "POST",
+    };
+    request.success = (data, textStatus, xhr) => {
+        $(el.parentElement.parentElement).remove();
+        showMessage(`Pesanan ${id} berhasil diambil`)
+    };
+    request.error = (xhr, textStatus, errorThrown) => {
+        showMessage(`Gagal menandai sebagai pesanan ${id} diambil`, 'danger');
+    };
+    $.ajax(request);
+}
+
+function revertDone(el, id) {
+    const request = {
+        url: `/pesanan/${id}/revert-done`,
+        method: "POST",
+    };
+    request.success = (data, textStatus, xhr) => {
+        $(el.parentElement.parentElement).remove();
+        showMessage(`Pengambilan pesanan ${id} berhasil dibatalkan`)
+    };
+    request.error = (xhr, textStatus, errorThrown) => {
+        showMessage(`Gagal membatalkan pengambilan pesanan ${id}`, 'danger');
+    };
+    $.ajax(request);
+}
+
+function revertReady(el, id) {
+    const request = {
+        url: `/pesanan/${id}/revert-ready`,
+        method: "POST",
+    };
+    request.success = (data, textStatus, xhr) => {
+        $(el.parentElement.parentElement).remove();
+        showMessage(`Status pesanan ${id} berhasil dikembalikan menjadi diproses`)
+    };
+    request.error = (xhr, textStatus, errorThrown) => {
+        showMessage(`Gagal mengembalikan status pesanan ${id}`, 'danger');
+    };
+    $.ajax(request);
+}
+
 function deleteOrder(el, id) {
     if (!confirm(`Anda yakin ingin menghapus pesanan ${id}?`)) return;
     const request = {
-        url: ROUTE_DELETE.replace('##', id),
-        method: "GET",
+        url: `/pesanan/${id}/delete`,
+        method: "POST",
     };
     request.success = (data, textStatus, xhr) => {
         showMessage(`Pesanan ${id} berhasil dihapus`);

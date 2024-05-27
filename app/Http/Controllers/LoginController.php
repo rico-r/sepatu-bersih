@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pelanggan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -14,7 +12,7 @@ class LoginController extends Controller
      */
     public function index()
     {
-        if(Auth::guard('karyawan')->check()) {
+        if (Auth::guard('karyawan')->check()) {
             return redirect(route('karyawan.dashboard'));
         }
         return view('login');
@@ -29,7 +27,7 @@ class LoginController extends Controller
             'username' => 'required',
             'password' => 'required',
         ]);
-        if(Auth::guard('karyawan')->attempt([
+        if (Auth::guard('karyawan')->attempt([
             'username' => $validated['username'],
             'password' => $validated['password'],
             'active' => 1,
@@ -53,5 +51,4 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
         return redirect(route('home'));
     }
-
 }

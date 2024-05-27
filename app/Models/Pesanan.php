@@ -51,6 +51,12 @@ class Pesanan extends Model
 
     protected static function booted(): void
     {
+        static::created(function (Pesanan $pesanan) {
+            $statusPesanan = new StatusPesanan();
+            $statusPesanan->id_pesanan = $pesanan->id;
+            $statusPesanan->status = 'process';
+            $statusPesanan->save();
+        });
         static::deleting(function (Pesanan $pesanan) {
             foreach ($pesanan->rincian as $rincian) {
                 $rincian->delete();

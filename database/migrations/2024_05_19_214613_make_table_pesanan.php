@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('kembalian');
             $table->integer('total')->default(0);
             // status = process, ready, done
-            $table->string('status', 7)->default('process');
+            $table->string('status', 7)->default('');
             $table->timestamps();
         });
     }

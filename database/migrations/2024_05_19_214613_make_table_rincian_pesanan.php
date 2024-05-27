@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Karyawan;
 use App\Models\Layanan;
 use App\Models\Pesanan;
 use Illuminate\Database\Migrations\Migration;

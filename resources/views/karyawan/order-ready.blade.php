@@ -40,12 +40,15 @@
                                 <td>{{ formatMoney($pesanan->total) }}</td>
                                 <td>{{ formatDatetime($pesanan->created_at) }}</td>
                                 <td>
-                                    <button class="btn btn-success" title="Tandai diambil" onclick="mark(this, {{ $pesanan->id }})">
+                                    <button class="btn btn-success" title="Tandai diambil" onclick="markDone(this, {{ $pesanan->id }})">
                                         <i class="fa fa-check"></i>
                                     </button>
-                                    <a class="btn btn-primary" title="Lihat pesanan" href="{{ route('order.view', ['pesanan' => $pesanan->id] )}}">
+                                    <a class="btn btn-primary" title="Lihat detail pesanan" href="{{ route('order.view', ['pesanan' => $pesanan->id] )}}">
                                         <i class="fa fa-eye"></i>
                                     </a>
+                                    <button class="btn btn-danger" title="Batalkan selesai" onclick="revertReady(this, {{ $pesanan->id }})">
+                                        <i class="fa fa-arrow-rotate-left"></i>
+                                    </button>
                                     <button class="btn btn-danger" title="Hapus pesanan" onclick="deleteOrder(this, {{ $pesanan->id }})">
                                         <i class="fa fa-trash"></i>
                                     </button>
@@ -63,11 +66,5 @@
 @endsection
 
 @push('scripts')
-<script>
-const ROUTE_MARK_READY = '{{ route('order.mark-ready', ['pesanan' => '##']) }}';
-const ROUTE_MARK_DONE = '{{ route('order.mark-done', ['pesanan' => '##']) }}';
-const ROUTE_DELETE = '{{ route('order.delete', ['pesanan' => '##']) }}';
-</script>
-
 <script src="/js/order.js"></script>
 @endpush

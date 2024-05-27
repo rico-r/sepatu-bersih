@@ -5,14 +5,14 @@
 @section('content')
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Buat Pesanan</h1>
+    <h1 class="h3 mb-0 text-gray-800">Daftar Layanan</h1>
 </div>
 
 <div class="row">
     <div class="mb-4 col-xl-6">
         <div class="card shadow pe-2">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Layanan</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Daftar Layanan</h6>
             </div>
             <div class="card-body">
                 <form id="search">
@@ -121,6 +121,28 @@
     </div>
 </div>
 
+<!-- Print Modal-->
+<div class="modal d-flex fade" id="printModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog my-auto" role="document">
+        <form class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Cetak</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Data berhasil disimpan
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" type="button" data-dismiss="modal">Tutup</button>
+                <button type="submit" class="btn btn-warning" onclick="printLabel(newId)">Cetak Label</button>
+                <button type="submit" class="btn btn-primary" onclick="printNota(newId)">Cetak Nota</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 @endsection
 
 @push('styles')
@@ -128,6 +150,8 @@
 @endpush
 
 @push('scripts')
+<script src="/js/print.js"></script>
+
 <script>
 function formatMoney(amount) {
     const result = [];
@@ -147,6 +171,7 @@ const searchInput = $('form#search input[name=keyword]');
 let total = 0;
 let money = 0;
 let returns = 0;
+let newId = -1;
 
 $('form#search').on('submit', e => {
     e.preventDefault();
@@ -211,8 +236,8 @@ function sendTransaction(e) {
         }
     };
     request.success = (data, textStatus, xhr) => {
-        showMessage('Berhasil disimpan');
-        resetAmount();
+        newId = data.id;
+        showPrint();
     };
     request.error = (xhr, textStatus, errorThrown) => {
         showMessage('Gagal menyimpan', 'danger');
@@ -228,6 +253,11 @@ function resetAmount() {
         $(el).val(0)
     })
     recalculate();
+}
+
+function showPrint() {
+    // showMessage('Berhasil disimpan');
+    resetAmount();
 }
 
 $(document).ready(function() {
@@ -324,6 +354,8 @@ $(document).ready(function() {
     }
     e.preventDefault();
 });
+
+$('#printModal').modal({ show: true });
 </script>
 
 @endpush

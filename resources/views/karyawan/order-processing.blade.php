@@ -46,13 +46,13 @@
                                     <button class="btn btn-success" title="Tandai selesai diproses" onclick="markReady(this, {{ $pesanan->id }})">
                                         <i class="fa fa-check"></i>
                                     </button>
-                                    <button class="btn btn-primary" title="cetak nota">
+                                    <button class="btn btn-primary" title="cetak nota" onclick="printNota({{ $pesanan->id }})">
                                         <i class="fa fa-print"></i>
                                     </button>
-                                    <button class="btn btn-warning" title="cetak label">
+                                    <button class="btn btn-warning" title="cetak label" onclick="printLabel({{ $pesanan->id }})">
                                         <i class="fa fa-print"></i>
                                     </button>
-                                    <a class="btn btn-primary" title="Lihat pesanan" href="{{ route('order.view', ['pesanan' => $pesanan->id] )}}">
+                                    <a class="btn btn-primary" title="Lihat detail pesanan" href="{{ route('order.view', ['pesanan' => $pesanan->id] )}}">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                     <button class="btn btn-danger" title="Hapus pesanan" onclick="deleteOrder(this, {{ $pesanan->id }})">
@@ -72,11 +72,6 @@
 @endsection
 
 @push('scripts')
-<script>
-const ROUTE_MARK_READY = '{{ route('order.mark-ready', ['pesanan' => '##']) }}';
-const ROUTE_MARK_DONE = '{{ route('order.mark-done', ['pesanan' => '##']) }}';
-const ROUTE_DELETE = '{{ route('order.delete', ['pesanan' => '##']) }}';
-</script>
-
+<script src="/js/print.js"></script>
 <script src="/js/order.js"></script>
 @endpush

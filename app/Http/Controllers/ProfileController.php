@@ -6,7 +6,6 @@ use App\Models\Karyawan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 
 class ProfileController extends Controller
 {
@@ -38,7 +37,6 @@ class ProfileController extends Controller
         ]);
         $user = Karyawan::find($userAuth->id);
         $attr = $request->only(['nama', 'username']);
-        Log::debug('update profile', $request->all());
         if ($request->has('password') && strlen($request->password) > 0) {
             $attr['password'] = Hash::make($request->password);
         }

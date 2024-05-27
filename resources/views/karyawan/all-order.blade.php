@@ -42,7 +42,7 @@
                                 <td>{{ formatDatetime($pesanan->created_at) }}</td>
                                 <td>{{ $pesanan->status_view() }}</td>
                                 <td>
-                                    <a class="btn btn-primary" title="Lihat pesanan" href="{{ route('order.view', ['pesanan' => $pesanan->id] )}}">
+                                    <a class="btn btn-primary" title="Lihat detail pesanan" href="{{ route('order.view', ['pesanan' => $pesanan->id] )}}">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                     <button class="btn btn-danger" title="Hapus pesanan" onclick="deleteOrder(this, {{ $pesanan->id }})">
