@@ -122,7 +122,7 @@
 </div>
 
 <!-- Print Modal-->
-<div class="modal d-flex fade" id="printModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="printModal" tabindex="-1" role="dialog">
     <div class="modal-dialog my-auto" role="document">
         <form class="modal-content">
             <div class="modal-header">
@@ -136,8 +136,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" type="button" data-dismiss="modal">Tutup</button>
-                <button type="submit" class="btn btn-warning" onclick="printLabel(newId)">Cetak Label</button>
-                <button type="submit" class="btn btn-primary" onclick="printNota(newId)">Cetak Nota</button>
+                <button type="button" class="btn btn-warning" onclick="printLabel(newId)">Cetak Label</button>
+                <button type="button" class="btn btn-primary" onclick="printNota(newId)">Cetak Nota</button>
             </div>
         </form>
     </div>
@@ -256,7 +256,7 @@ function resetAmount() {
 }
 
 function showPrint() {
-    // showMessage('Berhasil disimpan');
+    $('#printModal').modal({ show: true });
     resetAmount();
 }
 
@@ -292,7 +292,6 @@ $(document).ready(function() {
         setAmount(amount.val(), false);
     });
     tbody.append(layanan);
-    // $('#dataLayanan').DataTable();
     recalculate();
   });
 
@@ -355,7 +354,6 @@ $(document).ready(function() {
     e.preventDefault();
 });
 
-$('#printModal').modal({ show: true });
 </script>
 
 @endpush

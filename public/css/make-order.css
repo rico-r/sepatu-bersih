@@ -12,10 +12,10 @@
     -moz-appearance: textfield;
 }
 
-.modal {
-    display: flex;
+#printModal.modal.show {
+    display: flex !important;
 }
 
-.modal.hide {
+/* #printModal.modal {
     display: none;
-}
+} */
